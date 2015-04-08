@@ -25,7 +25,7 @@ func JSONForData(data: NSData) -> AnyObject? {
 
 func ParseJSON(json: AnyObject) -> [String]? {
   if let array = json as? [AnyObject] {
-    if array.count == 2 {
+    if array.count >= 2 {
       return array[1] as? [String]
     }
   }

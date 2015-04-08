@@ -5,15 +5,6 @@ import Foundation
 let queryBase = "http://en.wikipedia.org/w/api.php?"
   + "action=opensearch&format=json&search="
 
-extension Optional {
-  func flatMap<U>(f: T -> U?) -> U? {
-    if let x = self {
-      return f(x)
-    }
-    return nil
-  }
-}
-
 infix operator >>== { associativity left }
 func >>== <T,U>(lhs: T?, rhs: T -> U?) -> U? {
   return lhs.flatMap(rhs)
@@ -37,7 +28,7 @@ func JSONForData(data: NSData) -> AnyObject? {
 
 func ParseJSON(json: AnyObject) -> [String]? {
   return (json as? [AnyObject])
-    >>== { $0.count == 2 ? $0 : nil }
+    >>== { $0.count >= 2 ? $0 : nil }
     >>== { $0[1] as? [String] }
 }
 

@@ -17,7 +17,7 @@ func pagesForSearch(search: String) -> [String]? {
               .JSONObjectWithData(data,
                 options: NSJSONReadingOptions(0), error: nil) {
                   if let array = json as? [AnyObject] {
-                    if array.count == 2 {
+                    if array.count >= 2 {
                       return array[1] as? [String]
                     }}}}}}
   return nil

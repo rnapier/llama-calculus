@@ -1,0 +1,10 @@
+framework module Prelude {
+  umbrella header "Prelude.h"
+
+  export *
+  module * { export * }
+}
+
+module Prelude.Swift {
+    header "Prelude-Swift.h"
+}

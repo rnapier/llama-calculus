@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3BEB91E3-BD3E-4CE2-80E7-1DA3825FC6B7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Wikipedia</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B7B343202BCE41F8E1A5540AC66E5C8683267622</key>
+		<string>github.com:rnapier/llama-calculus.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>LlamaCalculus/Wikipedia.playground</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B7B343202BCE41F8E1A5540AC66E5C8683267622</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:rnapier/llama-calculus.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B7B343202BCE41F8E1A5540AC66E5C8683267622</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B7B343202BCE41F8E1A5540AC66E5C8683267622</string>
+			<key>IDESourceControlWCCName</key>
+			<string>llama-calculus</string>
+		</dict>
+	</array>
+</dict>
+</plist>
