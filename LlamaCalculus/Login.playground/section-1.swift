@@ -21,12 +21,11 @@ func login(#domain: String, #username: String, #password: String)
 
 func login(#domain: String?, #username: String?, #password: String?)
     -> Connection? {
-        if let d = domain {
-            if let u = username {
-                if let p = password {
-                    return login(domain: d, username: u, password: p)
-                }
-            }
+        if let
+            d = domain,
+            u = username,
+            p = password {
+                return login(domain: d, username: u, password: p)
         }
         return nil
 }
@@ -45,13 +44,11 @@ func login2(#domain: String?, #username: String?, #password: String?)
 let d = ["domain": "example.com", "username": "bob", "password": "pa$$word!" ]
 
 var connection: Connection?
-if let domain = d["domain"] {
-    if let username = d["username"] {
-        if let password = d["password"] {
-            connection = login(domain: domain,
-                username: username, password: password)
-        }
-    }
+if let domain = d["domain"],
+    username = d["username"],
+    password = d["password"] {
+        connection = login(domain: domain,
+            username: username, password: password)
 }
 
 

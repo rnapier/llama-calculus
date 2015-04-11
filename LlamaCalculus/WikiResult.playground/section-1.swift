@@ -9,13 +9,6 @@ func mkError(message: String) -> NSError {
         userInfo: [NSLocalizedDescriptionKey: message])
 }
 
-func ifpred<T, Error>(input: T,
-    @autoclosure #include: () -> Bool,
-    @autoclosure #failWith: () -> Error)
-    -> Result<T, Error> {
-        return include() ? .success(input) : .failure(failWith())
-}
-
 func URLForSearch(search: String) -> Result<NSURL, NSError> {
     return
         Result(search.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding),
@@ -39,14 +32,9 @@ func JSONForData(data: NSData) -> Result<AnyObject, NSError> {
 
 func ParseJSON(json: AnyObject) -> Result<[String], NSError> {
     return
-        Result(json as? [AnyObject],
-            failWith: mkError("Expected array. Received: \(json)"))
-
-            >>- { ifpred($0, include: $0.count >= 2,
-                failWith: mkError("Array incorrect size: \($0)"))}
-
-            >>- { Result($0[1] as? [String],
-                failWith: mkError("Malformed array: \($0)"))}
+        Result(json as? [AnyObject],               failWith: mkError("Expected array. Received: \(json)"))
+            >>- { Result($0.count >= 2 ? $0 : nil, failWith: mkError("Array incorrect size: \($0)"))}
+            >>- { Result($0[1] as? [String],       failWith: mkError("Malformed array: \($0)"))}
 }
 
 func pagesForSearch(search: String) -> Result<[String], NSError> {

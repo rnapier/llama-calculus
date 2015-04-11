@@ -8,16 +8,25 @@ func mkError(message: String) -> NSError {
         userInfo: [NSLocalizedDescriptionKey: message])
 }
 
-func URLForSearch(search: String, #error: NSErrorPointer) -> NSURL? {
-    var err: NSError?
-    if let encoded = search
-        .stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding) {
-            if let url = NSURL(string: queryBase + encoded) {
-                return url
-            } else { err = mkError("Malformed URL: \(encoded)") }
-    } else { err = mkError("Malformed Search: \(search)") }
+func err<T>(err: NSErrorPointer, message: String) -> T? {
+    if err != nil { err.memory = mkError(message) }
+    return nil
+}
 
-    if error != nil { error.memory = err }
+func err(err: NSErrorPointer, message: String) -> Bool {
+    if err != nil { err.memory = mkError(message) }
+    return false
+}
+
+func URLForSearch(search: String, #error: NSErrorPointer) -> NSURL? {
+    if let
+        encoded = search
+            .stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            ?? err(error, "Malformed Search: \(search)") {
+
+                return NSURL(string: queryBase + encoded)
+                    ?? err(error, "Malformed URL: \(encoded)")
+    }
     return nil
 }
 
@@ -32,27 +41,23 @@ func JSONForData(data: NSData, #error: NSErrorPointer) -> AnyObject? {
 }
 
 func ParseJSON(json: AnyObject, #error: NSErrorPointer) -> [String]? {
-    var err: NSError?
-    if let array = json as? [AnyObject] {
-        if array.count >= 2 {
-            if let list = array[1] as? [String] {
-                return list
-            } else { err = mkError("Malformed array: \(array)") }
-        } else { err = mkError("Array incorrect size: \(array)") }
-    } else { err = mkError("Expected array. Received: \(json)") }
-
-    if error != nil { error.memory = err }
+    if  let array = json as? [AnyObject] ?? err(error, "Expected array. Received: \(json)")
+        where array.count >= 2           || err(error, "Array incorrect size: \(array)") {
+            return array[1] as? [String] ?? err(error, "Malformed array: \(array)")
+    }
     return nil
 }
 
 func pagesForSearch(search: String, #error: NSErrorPointer) -> [String]? {
-    if let url = URLForSearch(search, error: error) {
-        if let data = DataForURL(url, error: error) {
-            if let json: AnyObject = JSONForData(data, error: error) {
-                return ParseJSON(json, error: error)
-            }}}
+    if let
+        url             = URLForSearch(search, error: error),
+        data            = DataForURL(url, error: error),
+        json: AnyObject = JSONForData(data, error: error) {
+            return ParseJSON(json, error: error)
+    }
     return nil
 }
 
 var error: NSError?
 pagesForSearch("Albert ", error: &error)
+error
